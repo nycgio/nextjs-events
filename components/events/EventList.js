@@ -10,10 +10,10 @@ function EventList(props) {
 				<EventItem
 					key={event.id}
 					id={event.id}
+					title={event.title}
 					image={event.image}
 					date={event.date}
 					location={event.location}
-					id={event.id}
 				/>
 			))}
 		</ul>
