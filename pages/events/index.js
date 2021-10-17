@@ -1,12 +1,13 @@
 import React, { Fragment } from "react";
 import { getAllEvents } from "../../dummy-data";
+import { getFeaturedEvents } from "../../helpers/api.util";
 
 import { useRouter } from "next/router";
 
 import EventList from "../../components/events/EventList";
 import EventSearch from "../../components/events/events-search";
 
-function EventsIndex() {
+function EventsIndex(props) {
 	const router = useRouter();
 	const events = getAllEvents();
 
@@ -26,5 +27,15 @@ function EventsIndex() {
 		</Fragment>
 	);
 }
+
+export const getStaticProps = async (context) => {
+	const featuredEvents = await getFeaturedEvents();
+
+	return {
+		props: {
+			events: featuredEvents,
+		},
+	};
+};
 
 export default EventsIndex;
