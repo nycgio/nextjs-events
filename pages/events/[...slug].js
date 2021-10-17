@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
 import { useRouter } from "next/router";
 import { getFilteredEvents } from "../../helpers/api.util";
-
+import Head from "next/head";
 // components
 import EventList from "../../components/events/EventList";
 import ResultsTitle from "../../components/results-title/results-title";
@@ -12,8 +12,22 @@ function FilteredEvents(props) {
 	const router = useRouter();
 	const filterData = router.query.slug;
 
+	const date = new Date(props.date.year, props.date.month - 1);
+
+	let pageHeadData = (
+		<Head>
+			<title>Filtered Events</title>
+			<meta name="description" content={`A list of filtered events}`} />
+		</Head>
+	);
+
 	if (!filterData) {
-		return <p className="center">Loading...</p>;
+		return (
+			<Fragment>
+				{pageHeadData}
+				<p className="center">Loading...</p>;
+			</Fragment>
+		);
 	}
 
 	if (props.hasError) {
@@ -33,6 +47,7 @@ function FilteredEvents(props) {
 	if (!filteredEvents || filteredEvents.length === 0) {
 		return (
 			<Fragment>
+				{pageHeadData}
 				<div className="center">
 					<ErrorAlert>
 						<p>No events found</p>
@@ -42,11 +57,9 @@ function FilteredEvents(props) {
 			</Fragment>
 		);
 	}
-
-	const date = new Date(props.date.year, props.date.month - 1);
-
 	return (
 		<Fragment>
+			{pageHeadData}
 			<ResultsTitle date={date} />
 			<EventList items={filteredEvents} />
 		</Fragment>

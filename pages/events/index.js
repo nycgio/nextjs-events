@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
-import { getFeaturedEvents, getAllEvents } from "../../helpers/api.util";
-
+import Head from "next/head";
+import { getAllEvents } from "../../helpers/api.util";
 import { useRouter } from "next/router";
 
 import EventList from "../../components/events/EventList";
@@ -20,6 +20,10 @@ function EventsIndex(props) {
 
 	return (
 		<Fragment>
+			<Head>
+				<title>All Events</title>
+				<meta name="description" content="Find all events" />
+			</Head>
 			<EventSearch onSearch={findEventsHandler} />
 			<EventList items={events} />
 		</Fragment>
