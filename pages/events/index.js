@@ -1,6 +1,5 @@
 import React, { Fragment } from "react";
-import { getAllEvents } from "../../dummy-data";
-import { getFeaturedEvents } from "../../helpers/api.util";
+import { getFeaturedEvents, getAllEvents } from "../../helpers/api.util";
 
 import { useRouter } from "next/router";
 
@@ -9,8 +8,7 @@ import EventSearch from "../../components/events/events-search";
 
 function EventsIndex(props) {
 	const router = useRouter();
-	const events = getAllEvents();
-
+	const { events } = props;
 	if (!events) {
 		return <p>No events found</p>;
 	}
@@ -29,12 +27,14 @@ function EventsIndex(props) {
 }
 
 export const getStaticProps = async (context) => {
-	const featuredEvents = await getFeaturedEvents();
+	const events = await getAllEvents();
 
 	return {
 		props: {
-			events: featuredEvents,
+			events: events,
 		},
+		// refresh every 60 seconds
+		revalidate: 60,
 	};
 };
 
