@@ -11,7 +11,6 @@ import Comments from "../../components/input/comments";
 
 function EventDetailPage(props) {
 	const event = props.event;
-
 	if (props.hasError) {
 		return (
 			<div className="center">
@@ -44,7 +43,7 @@ function EventDetailPage(props) {
 			<EventContent>
 				<p>{event.description}</p>
 			</EventContent>
-			<Comments />
+			<Comments eventId={event.id} />
 		</Fragment>
 	);
 }
