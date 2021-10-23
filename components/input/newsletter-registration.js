@@ -26,6 +26,7 @@ function NewsletterRegistration() {
 			<form onSubmit={registrationHandler}>
 				<div className={classes.control}>
 					<input
+						required
 						type="email"
 						id="email"
 						placeholder="Your email"

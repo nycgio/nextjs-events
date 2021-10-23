@@ -34,7 +34,13 @@ function Comments(props) {
 			},
 		})
 			.then((res) => res.json())
-			.then((data) => console.log(data));
+			.then((data) => {
+				let comment = data.comment;
+
+				if (comment) {
+					setComments((oldComments) => [comment, ...oldComments]);
+				}
+			});
 	}
 
 	return (
