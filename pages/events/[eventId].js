@@ -12,10 +12,18 @@ import ErrorAlert from "../../components/ui/error-alert";
 function EventDetailPage(props) {
 	const event = props.event;
 
+	if (props.hasError) {
+		return (
+			<div className="center">
+				<p>Nothing found...</p>
+			</div>
+		);
+	}
+
 	if (!event) {
 		return (
 			<div className="center">
-				<p>Loading...</p>;
+				<p>Loading...</p>
 			</div>
 		);
 	}
@@ -44,6 +52,12 @@ export const getStaticProps = async (context) => {
 	const eventId = context.params.eventId;
 
 	const event = await getEventById(eventId);
+
+	if (!event) {
+		return {
+			props: { hasError: true },
+		};
+	}
 
 	return {
 		props: {
